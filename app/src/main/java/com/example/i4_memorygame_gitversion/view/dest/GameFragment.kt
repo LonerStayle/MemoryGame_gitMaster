@@ -1,15 +1,19 @@
 package com.example.i4_memorygame_gitversion.view.dest
 
 import android.view.View
-import android.view.animation.LinearInterpolator
+
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.i4_memorygame_gitversion.R
 import com.example.i4_memorygame_gitversion.databinding.FragmentGameBinding
+import com.example.i4_memorygame_gitversion.db.GameDatabase
 import com.example.i4_memorygame_gitversion.view.activity.MainActivity
 import com.example.i4_memorygame_gitversion.view.adapter.GameAdapter
 import com.example.i4_memorygame_gitversion.view.contents.Contents
 import com.example.i4_memorygame_gitversion.view.viewbase.FragmentBase
+import com.example.i4_memorygame_gitversion.viewmodel.GameViewModel
+import com.example.i4_memorygame_gitversion.viewmodel.GameViewModelFactory
 import kotlinx.android.synthetic.main.fragment_game.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -19,10 +23,6 @@ import kotlinx.coroutines.launch
 
 class GameFragment : FragmentBase<FragmentGameBinding>(R.layout.fragment_game) {
 
-
-    companion object {
-        var startRound = 1
-    }
 
     private val args by lazy {
         GameFragmentArgs.fromBundle(
@@ -36,7 +36,7 @@ class GameFragment : FragmentBase<FragmentGameBinding>(R.layout.fragment_game) {
     private val col by lazy{args.col}
 
     override fun FragmentGameBinding.setOnCreateViewEvent() {
-        currentRound = startRound
+        currentRound = Contents.startRound
         maxRound = finalRound
 
         setRecyclerView()
@@ -89,7 +89,6 @@ class GameFragment : FragmentBase<FragmentGameBinding>(R.layout.fragment_game) {
             )
 
         recyclerView.layoutManager = GridLayoutManager(requireContext(), row)
-
 
     }
 
