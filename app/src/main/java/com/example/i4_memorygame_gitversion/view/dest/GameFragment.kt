@@ -51,32 +51,54 @@ class GameFragment : FragmentBase<FragmentGameBinding>(R.layout.fragment_game) {
     }
 
 
-    private fun setRecyclerView() {
+    private fun FragmentGameBinding.setRecyclerView() {
 
-        binding.apply {
-            recyclerView.adapter =
-                GameAdapter(
-                    gameSettingPosition = Contents.GAME_READY_MODE,
-                    row = row,
-                    col = col,
-                    maxRound = finalRound,
-                    clickEvnet_timeBarAniReStart = { timeBarAnimationCancel();timeBarAnimation() },
-                    clickEvnet_answerIsWrongInClickEvent = { answerIsWrong() },
-                    clickEvnet_goToTheNextRound = { goToTheNextRound() },
-                    clickEvnet_afterTheLastGameEvent = { afterTheLastGameEvent() }
+        recyclerView.adapter =
+            GameAdapter(
+                gameSettingPosition = Contents.GAME_READY_MODE,
+                row = row,
+                col = col,
+                maxRound = finalRound,
+                clickEvnet_timeBarAniReStart =
+                {
+                    viewModel.timeBarAnimationCancel(binding)
+                    viewModel.timeBarAnimation(binding, dp)
+                },
+                clickEvnet_answerIsWrongInClickEvent =
+                {
+                    viewModel.answerIsWrong(
+                        binding,
+                        requireContext(),
+                        { previewCorrectAnswer() },
+                        { gameInProgress() })
+                },
+                clickEvnet_goToTheNextRound = {
+                    viewModel.goToTheNextRound(
+                        binding,
+                        requireContext(),
+                        { previewCorrectAnswer() },
+                        { gameInProgress() }
+                    )
+                },
+                clickEvnet_afterTheLastGameEvent = {
+                    viewModel.afterTheLastGameEvent(
+                        this@GameFragment,
+                        finalRound, row, col
+                    )
+                }
+            )
 
-                )
+        recyclerView.layoutManager = GridLayoutManager(requireContext(), row)
 
-            recyclerView.layoutManager = GridLayoutManager(requireContext(), row)
-        }
 
     }
+
 
 
     private fun previewCorrectAnswer() {
 
         binding.textViewInfo.text = resources.getString(R.string.tv_remember)
-        timeBarAnimation()
+        viewModel.timeBarAnimation(binding,dp)
 
         (recyclerView.adapter as GameAdapter).run {
             gameSettingPosition = Contents.GAME_REMEMBER_MODE
@@ -96,104 +118,6 @@ class GameFragment : FragmentBase<FragmentGameBinding>(R.layout.fragment_game) {
                 notifyDataSetChanged()
             }
         }
-    }
-
-    private fun timeBarAnimation() {
-
-        binding.viewTimeBar.animate().apply {
-            translationXBy(0f)
-            translationX(-MainActivity.displayWidth / 1.92f * dp)
-            interpolator = LinearInterpolator()
-            duration = Contents.GAME_ROUND_TIME
-        }.start()
-    }
-
-    private fun timeBarAnimationCancel() {
-
-        binding.apply {
-            viewTimeBar.animate().cancel()
-            viewTimeBar.animate().translationX(0f).duration = 10
-
-        }
-
-    }
-
-
-    private fun answerIsWrong() {
-
-        binding.apply {
-            timeBarAnimationCancel()
-
-            textViewInfo.text = resources.getString(R.string.tv_wrongAnswer)
-            imageViewImageCheck.visibility = View.GONE
-            linearLayoutInfo.background =
-                resources.getDrawable(R.drawable.wrong_answer_background, null)
-
-            CoroutineScope(Dispatchers.Main).launch {
-                delay(2000)
-                (recyclerView.adapter as GameAdapter).run {
-                    gameSettingPosition = Contents.GAME_READY_MODE
-                    linearLayoutInfo.background =
-                        resources.getDrawable(R.drawable.info_background, null)
-                    textViewInfo.text = resources.getString(R.string.tv_gameReady)
-                    notifyDataSetChanged()
-
-                    delay(2000)
-                    previewCorrectAnswer()
-
-                    delay(4000)
-                    gameInProgress()
-                }
-            }
-        }
-
-    }
-
-    private fun goToTheNextRound() {
-        binding.apply {
-            timeBarAnimationCancel()
-            startRound++
-
-            currentRound = startRound
-            imageViewImageCheck.visibility = View.GONE
-            linearLayoutInfo.background = resources.getDrawable(R.drawable.answer_background, null)
-            textViewInfo.text = resources.getString(R.string.tv_answer)
-
-            CoroutineScope(Dispatchers.Main).launch {
-                delay(2000)
-
-                (recyclerView.adapter as GameAdapter).run {
-                    gameSettingPosition = Contents.GAME_READY_MODE
-                    linearLayoutInfo.background =
-                        resources.getDrawable(R.drawable.info_background, null)
-                    textViewInfo.text = resources.getString(R.string.tv_gameReady)
-                    notifyDataSetChanged()
-
-                    delay(2000)
-                    previewCorrectAnswer()
-
-                    delay(4000)
-                    gameInProgress()
-
-                }
-
-            }
-        }
-    }
-
-    private fun afterTheLastGameEvent() {
-        findNavController().navigate(R.id.action_gameFragment_to_recordFragment)
-
-//        val gameModel = GameModel(
-//            round = args.maxRound,
-//            col = args.col,
-//            row = args.row
-//        )
-//        viewModel.insert(gameModel)
-        viewModel.insert(finalRound,
-            row,
-            col)
-
     }
 
 }

@@ -1,5 +1,6 @@
 package com.example.i4_memorygame_gitversion.view.dest
 
+import androidx.navigation.fragment.findNavController
 import com.example.i4_memorygame_gitversion.R
 import com.example.i4_memorygame_gitversion.databinding.FragmentGameSettingBinding
 import com.example.i4_memorygame_gitversion.view.viewbase.FragmentBase
