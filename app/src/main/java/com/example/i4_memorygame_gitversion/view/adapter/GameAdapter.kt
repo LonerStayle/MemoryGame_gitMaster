@@ -158,14 +158,14 @@ class GameAdapter(
                 }
 
 
-                (GameFragment.startRound < maxRound) &&
+                (Contents.startRound < maxRound) &&
                         (answerList.size == answerClickList.size) &&
-                        (answerList.containsAll(answerClickList)) -> {
+                        (answerList.containsAll(answerClickList)) ->
                     clickEvnet_goToTheNextRound()
 
 
-                }
-                (GameFragment.startRound == maxRound) &&
+
+                (Contents.startRound == maxRound) &&
                         (answerList.size == answerClickList.size) &&
                         (answerList.containsAll(answerClickList)) ->
                     clickEvnet_afterTheLastGameEvent()
