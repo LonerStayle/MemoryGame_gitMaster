@@ -22,9 +22,14 @@ abstract class FragmentBase<VDB : ViewDataBinding>(@LayoutRes private val layout
     protected lateinit var binding: VDB
 
     protected abstract fun VDB.setOnCreateViewEvent()
-     private val database by lazy { GameDatabase.getInstance(requireContext()) }
-    private val viewModelInFactory by lazy { GameViewModelFactory(database.dao) }
-   protected val viewModel by viewModels<GameViewModel> { viewModelInFactory }
+
+
+    //   protected val viewModel by viewModels<GameViewModel> { viewModelInFactory }
+    protected val viewModel by lazy{
+         val database = GameDatabase.getInstance(requireContext())
+         val viewModelInFactory= GameViewModelFactory(database.dao)
+        ViewModelProvider(this,viewModelInFactory).get(GameViewModel::class.java) }
+
 
 
     override fun onCreateView(
