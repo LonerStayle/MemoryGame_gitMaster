@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/navi"
+    app:startDestination="@id/mainFragment">
+
+    <fragment
+        android:id="@+id/gameFragment"
+        android:name="com.example.i4_memorygame_gitversion.view.dest.GameFragment"
+        android:label="GameFragment">
+        <argument
+            android:name="maxRound"
+            android:defaultValue="3"
+            app:argType="integer" />
+        <argument
+            android:name="col"
+            android:defaultValue="3"
+            app:argType="integer" />
+        <argument
+            android:name="row"
+            android:defaultValue="3"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_gameFragment_to_recordFragment"
+            app:destination="@id/recordFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/recordFragment"
+        android:name="com.example.i4_memorygame_gitversion.view.dest.RecordFragment"
+        android:label="RecordFragment" >
+        <argument android:name="maxRound"
+            app:argType="integer"
+            android:defaultValue="3" />
+        <argument
+            android:name="col"
+            app:argType="integer"
+            android:defaultValue="3" />
+        <argument
+            android:name="row"
+            app:argType="integer"
+            android:defaultValue="3" />
+    </fragment>
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.example.i4_memorygame_gitversion.view.dest.MainFragment"
+        android:label="MainFragment" >
+        <action
+            android:id="@+id/action_mainFragment_to_gameSettingFragment"
+            app:destination="@id/gameSettingFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_recordFragment"
+            app:destination="@id/recordFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/gameSettingFragment"
+        android:name="com.example.i4_memorygame_gitversion.view.dest.GameSettingFragment"
+        android:label="GameSettingFragment" >
+        <action
+            android:id="@+id/action_gameSettingFragment_to_gameFragment"
+            app:destination="@id/gameFragment" />
+    </fragment>
+
+
+</navigation>

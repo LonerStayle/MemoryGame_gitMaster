@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="gameModel"
+            type="com.example.i4_memorygame_gitversion.db.entity.GameModel" />
+
+
+    </data>
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="4dp"
+    android:padding="4dp"
+    android:background="@drawable/record_background"
+    >
+
+    <TextView
+        android:id="@+id/textView_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@{String.valueOf(gameModel.id)}"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="id" />
+
+    <TextView
+        android:id="@+id/textView_maxRound"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@{@string/record_maxRound(gameModel.round)}"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_id"
+        tools:text="maxRound" />
+
+    <TextView
+        android:id="@+id/textView_row"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@{@string/record_row(gameModel.row)}"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/textView_maxRound"
+        app:layout_constraintStart_toStartOf="@+id/textView_maxRound"
+        app:layout_constraintTop_toBottomOf="@+id/textView_maxRound"
+        tools:text="row" />
+
+    <TextView
+        android:id="@+id/textView_col"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@{@string/record_row(gameModel.col)}"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/textView_row"
+        app:layout_constraintStart_toStartOf="@+id/textView_row"
+        app:layout_constraintTop_toBottomOf="@+id/textView_row"
+        tools:text="col" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

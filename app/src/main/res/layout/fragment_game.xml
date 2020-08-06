@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="maxRound"
+            type="Integer" />
+
+        <variable
+            name="currentRound"
+            type="Integer" />
+
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorMainFragmentBack"
+        tools:context=".view.dest.GameFragment">
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="100dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:itemCount="3"
+            tools:listitem="@layout/viewholder_game" />
+        <!--            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"-->
+        <!--            app:spanCount="@{row}"-->
+
+
+        <LinearLayout
+            android:id="@+id/linearLayout_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
+            android:background="@drawable/info_background"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@+id/recyclerView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <TextView
+                android:id="@+id/textView_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="@string/tv_gameReady"
+                android:textColor="#FFF"
+                android:textSize="46sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/imageView_imageCheck"
+                android:layout_width="54dp"
+                android:layout_height="54dp"
+                android:layout_marginEnd="10dp"
+                android:visibility="gone"
+                tools:src="@drawable/ic_launcher_background" />
+        </LinearLayout>
+
+        <View
+            android:id="@+id/view_timeBar"
+            android:layout_width="0dp"
+            android:layout_height="5dp"
+            android:background="#fff"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/view_distanceMeasurement"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/view_distanceMeasurement"
+            android:layout_width="1dp"
+            android:layout_height="0dp"
+            app:layout_constraintEnd_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView_gameRound"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:background="@drawable/info_background"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:text="@{@string/tv_currentPage(currentRound,maxRound)}"
+            android:textColor="#fff"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout_info"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view_timeBar"
+            tools:text="0/3" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#060C37</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#FFB948</color>
+    <color name="colorMainFragmentBack">#D0000000</color>
+    <color name="colorButtonSelectAfter">#FFB948</color>
+    <color name="colorButtonSelectBefore">#474444</color>
+</resources>
