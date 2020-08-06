@@ -47,6 +47,7 @@ dependencies {
 
     implementation arch_libraries
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    kapt "androidx.room:room-compiler:2.2.5"
 
     testImplementation testLibraries
     androidTestImplementation androidTestLibraries
